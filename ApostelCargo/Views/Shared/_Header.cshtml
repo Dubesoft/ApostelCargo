@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+
+}
+
+<section class="w3layouts-header py-2">
+    <div class="container">
+        <!-- header -->
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-gradient-secondary">
+
+                <h1>
+                    <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                        Apostel Cargo
+
+                    </a>
+                </h1>
+
+                <button class="navbar-toggler ml-md-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-lg-auto text-center">
+                        <li class="nav-item mr-3 @(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                            <a class="nav-link" asp-action="Index" asp-controller="Home">
+                                Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item  mr-3 @(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">
+                            <a class="nav-link" asp-action="About" asp-controller="Home">about</a>
+                        </li>
+                        <li class="nav-item  mr-3 @(ViewContext.RouteData.Values["Action"].ToString() == "Services" ? "active" : "")">
+                            <a class="nav-link" asp-action="Services" asp-controller="Home">Services</a>
+                        </li>
+
+                        <li class="nav-item mr-3 @(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">
+                            <a class="nav-link" asp-action="Contact" asp-controller="Home">contact</a>
+                        </li>
+                        <li class="nav-item mr-3 @(ViewContext.RouteData.Values["Action"].ToString() == "Blog" ? "active" : "")">
+                            <a class="nav-link" asp-action="Blog" asp-controller="Home">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <i class="fas fa-phone pr-2"></i>CALL GER 49-176-740-187-68
+                        </li>
+                    </ul>
+
+                </div>
+                @if (signInManager.IsSignedIn(User))
+                {
+                    <p class="pull-right">Welcome @user.Email</p><span><a asp-action="Logout" asp-controller="Account" asp-area="Admin">Log Out</a></span>
+                }
+            </nav>
+        </header>
+        <!-- //header -->
+
+    </div>
+</section>

@@ -1,0 +1,36 @@
+﻿@model Post
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Delete Post</h3>
+    </div><!-- /.box-header -->
+    <!-- form start -->
+    <form class="form-horizontal" asp-area="Admin" asp-controller="Post" asp-action="Delete" method="post" enctype="multipart/form-data">
+        <input type="hidden" class="form-control" asp-for="UserId" />
+        <input type="hidden" asp-for="PostId" class="form-control" />
+        <div class="box-body">
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label"> Post</label>
+                <div class="col-sm-10">
+                    <textarea rows="4" cols="100" class="form-control" placeholder="What's on your mind" style="resize: none;" asp-for="Description"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+                <div class="col-sm-10">
+                    <input type="file" id="projectImage" name="files" multiple class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">Video</label>
+                <div class="col-sm-10">
+                    <input type="file" id="projectImage" name="files1" multiple class="form-control" />
+                </div>
+            </div>
+        </div><!-- /.box-body -->
+        <div class="box-footer">
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-info pull-right">Delete</button>
+        </div><!-- /.box-footer -->
+    </form>
+</div><!-- /.box -->

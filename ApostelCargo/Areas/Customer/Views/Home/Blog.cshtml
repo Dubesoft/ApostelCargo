@@ -1,0 +1,648 @@
+﻿@model ApostelCargo.Models.ViewModels.BlogViewModel
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Http;
+
+@inject IHttpContextAccessor HttpContextAccessor
+
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+
+}
+
+@{
+    ViewData["Title"] = "About";
+    Layout = null;
+}
+
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Shipping a Transportation Category Flat Bootstrap Responsive Website Template | About :: w3layouts</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="keywords" content="Shipping Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script>
+
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- //for-mobile-apps -->
+    <link href="~/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="//fonts.googleapis.com/css?family=Rubik:400,500,700,900" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
+
+</head>
+
+<body>
+    <!-- header -->
+    <partial name="_Header" />
+    <br /><br />
+    <!-- //header -->
+
+    <div class="row">
+        <div class="col-10 text-right">
+            @if (signInManager.IsSignedIn(User))
+            {
+                <p>
+                    <button class="btn btn-primary" onclick="createModal('/Admin/Post/Create')"><i class="fa fa-plus"></i>&nbsp; Create New Post</button>
+                </p>
+            }
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <p><h3 class="box-title text-info">Blog</h3></p>
+            @{var i = 0;}
+            @if (Model.Post.Count() > 0)
+            {
+                foreach (var item in Model.Post)
+                {
+                    <div class="box box-widget">
+                        <div class='box-header with-border'>
+                            <div class='user-block'>
+                                <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
+                                <span class='username'><a href="#">Apostel Cargo</a></span>
+                                <span class='description'>Shared publicly -  @item.DateCreated.ToString("dd-MMM-yyyy")</span>
+                            </div><!-- /.user-block -->
+                            <div class='box-tools'>
+                                <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
+                                <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
+                                <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
+                            </div><!-- /.box-tools -->
+                        </div><!-- /.box-header -->
+                        <div class='box-body'>
+                            @if (item.Picture != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.Picture);
+                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                <img class="img-responsive pad" src="@imgsrc" alt="Photo">
+                            }
+
+                            @if (item.Video != null)
+                            {
+                                var base64 = Convert.ToBase64String(item.Picture);
+                                var vidsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <video src="@vidsrc" controls=""></video>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                            <p> @item.Description</p>
+                            <button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>
+
+                            @*<button class='btn btn-default btn-xs' disabled=""><i class='fa fa-thumbs-o-up'></i> Like</button>*@
+
+                            <button class='btn btn-default btn-xs addlike' data-id="@item.PostId"><i class='fa fa-thumbs-o-up'></i> Like</button>
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <button class='btn btn-default btn-xs' onclick="editModal('/Admin/Post/Edit?Id=@item.PostId')"><i class='fa fa-pencil-alt'></i> Edit</button>
+                                <button class='btn btn-default btn-xs' onclick="deleteModal('/Admin/Post/Delete?Id=@item.PostId')"><i class='fa fa-trash'></i> Delete</button>
+                            }
+                            <button class='btn btn-default btn-xs' data-id="@item.PostId" onclick="commentModal('/Admin/Post/GetComments?Id=@item.PostId')"><i class='fa fa-eye-o-up'></i> View Comments</button>
+
+
+                            @*<span id="commentBtn" class='pull-right text-muted commentBtn' onclick="getComments()"> @Model.CommentCount likes - 5 comments</span>*@
+
+                        <span id="commentBtn" class='pull-right text-muted commentBtn'>
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) != null)
+                            {
+                                <label> @HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) Likes(s)</label>
+                            }
+                            else
+                            {
+                                <label>0 Likes</label>
+                            }
+
+
+                             -
+                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) != null)
+                            {
+                                <label> @HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) Comment(s)</label>
+                            }
+                            else
+                            {
+                                <label>0 Comment</label>
+                            }
+
+                        </span>
+                            @{
+                                i++;
+
+                            }
+                        </div><!-- /.box-body -->
+
+                        <div class="box-footer">
+                            <form action="#" method="post">
+
+                                <img class="img-responsive img-circle img-sm" src="../../dist/img/user1-128x128.jpg" alt="User profile picture">
+
+                                <!-- .img-push is used to add margin to elements next to floating images -->
+                                <div class="img-push">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <input type="text" class="form-control input-sm" id="@string.Format("{0}_{1}", "comment", item.PostId)" placeholder="Press enter to post comment">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="button" class="btn btn-primary addcomment" data-id="@item.PostId">Comment</button>
+                                        </div>
+                                    </div>
+
+                                    @*<input type="text" id="@string.Format("{0}_{1}", "comment", @item.PostId)" class="" asp-for="@item.PostId" />*@
+                                </div>
+                            </form>
+                        </div><!-- /.box-footer -->
+                    </div><!-- /.box -->
+                }
+            }
+            else
+            {
+                <p>No Post exist...</p>
+            }
+
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+
+
+    <!--//ab-->
+    <!-- distance -->
+    <section class="distance-w3 py-md-5">
+        <div class="container py-4 mt-2">
+            <div class="row">
+                <div class="col-md-8 distance-agile-left">
+                    <h4 class="mt-2">The Safest Distance Between Two Points.</h4>
+                </div>
+                <div class="col-md-4 distance-agile-right">
+                    <a href="contact.html">CALL GER 49-176-740-187-68</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- //distance -->
+    <!-- team -->
+    <!-- //team -->
+    <!-- footer -->
+    <partial name="_Footer" />
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Shipping</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="agileits-w3layouts-info">
+                        <img src="images/g1.jpg" class="img-fluid" alt="" />
+                        <p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. </p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="displayCreate">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="displayEdit">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="displayDelete">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="displayDetail">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="commentModal" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div id="commentDetail">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- //Modal -->
+    <!-- js -->
+    <script src="~/js/jquery-2.2.3.min.js"></script>
+    <!-- //js-->
+    <!-- start-smooth-scrolling -->
+    <script src="~/js/move-top.js"></script>
+    <script src="~/js/easing.js"></script>
+    <script>
+
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+
+                $('html,body').animate({
+                    scrollTop: $(this.hash).offset().top
+                }, 1000);
+            });
+        });
+    </script>
+    <!-- //end-smooth-scrolling -->
+    <!-- smooth-scrolling-of-move-up -->
+    <script>
+
+        $(document).ready(function () {
+            /*
+            var defaults = {
+                containerID: 'toTop', // fading element id
+                containerHoverID: 'toTopHover', // fading element hover id
+                scrollSpeed: 1200,
+                easingType: 'linear'
+            };
+            */
+
+            $().UItoTop({
+                easingType: 'easeOutQuart'
+            });
+
+        });
+    </script>
+    <script src="~/js/SmoothScroll.min.js"></script>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/js/bootstrap.js"></script>
+
+
+    <script src="~/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+    <!-- Bootstrap 3.3.5 -->
+    <script src="~/bootstrap/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="~/plugins/fastclick/fastclick.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/dist/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/dist/js/demo.js"></script>
+
+
+
+    <script>
+
+        var URL = "";
+
+        function createModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#displayCreate").html(data);
+                }
+            });
+
+            $("#createModal").modal();
+        }
+
+        function editModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#displayEdit").html(data);
+                }
+            });
+
+            $("#editModal").modal();
+        }
+
+
+        function deleteModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#displayDelete").html(data);
+                }
+            });
+
+            $("#deleteModal").modal();
+        }
+
+        function detailModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#displayDetail").html(data);
+                }
+            });
+
+            $("#detailModal").modal();
+        }
+
+        function commentModal(URL) {
+
+            $.ajax({
+                type: "GET",
+                url: URL,
+                success: function (data) {
+                    $("#commentDetail").html(data);
+                }
+            });
+
+            $("#commentModal").modal();
+        }
+
+    </script>
+
+
+
+    <script>
+        //$(document).ready(function () {
+        //    $('.addcomment').keypress(function (e) {
+        //        if (e.which === 13) {
+        //            event.preventDefault();
+        //            var id_post = $('.addcomment').attr("data-id");
+        //            var commentVal = $('.addcomment').val();
+
+        //            //var commentVal = $(this).prev('.addcomment').val();
+        //            alert(commentVal);
+
+        //            var value = "";
+        //             var test = $('.addcomment').each(function (i) {
+        //                 value = i;
+        //            })
+        //            alert(value);
+
+        //        }
+        //    });
+        //});
+
+        //function checkInput(e) {
+        //    //e.preventDefault();
+
+        //    if (e.which === 13) {
+        //        var id_post = $('.addcomment').attr("data-id");
+        //            var commentVal = $('.addcomment').val();
+
+        //            //var commentVal = $(this).prev('.addcomment').val();
+        //            alert(commentVal);
+
+        //    }
+        //}
+        //var URL = "/Admin/Post/PostComment";
+
+        //$('.addcomment').on('click', function () {
+        //    var postId = $(this).attr('data-id');
+        //    var commentMsg = $('#comment_' + postId).val();
+
+        //    alert(commentMsg);
+        //    //var data = {
+        //    //    PostId: postId,
+        //    //    Comment: commentMsg
+        //    //};
+
+        //    //var comment = new Object();
+        //    //comment.postId = postId;
+        //    //comment.comment = commentMsg;
+
+        //    var model{
+        //        "PostId": postId,
+        //        "Comment": commentMsg
+        //    };
+
+        //    $.ajax({
+
+        //        type: 'POST',
+        //        url: '/Admin/Post/PostComment',
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: 'json',
+        //        data: JSON.stringify(model),
+        //        success: function (data) {
+
+        //            if (data.status = - 'ok') {
+        //                alert("Posted Successfully");
+        //            } else {
+        //                alert("Failed to Post");
+        //            }
+        //        },
+        //        error: function (e) {
+        //            alert("Error");
+        //        }
+        //    });
+        //});
+
+
+
+    </script>
+
+    @*<script>
+            $('.addcomment').on('click', function () {
+                var postId = $(this).attr('data-id');
+                var commentMsg = $('commentValues_' + postId).val();
+                //if (commentMsg == null || commentMsg == "") {
+                //    alert("You are not alllowed to submit an empty Comment");
+                //    window.location = "/Customer/Home/Blog";
+                //} else {
+                //alert(postId);
+
+                $.ajax({
+                    url: '/Admin/Post/GetComments/' + postId,
+                    data: "postId=" + postId,
+                    type: 'GET',
+                    dataType: 'text',
+                    success: function (data) {
+                        alert(data);
+                        result = JSON.parse(data);
+                        //alert(result);
+                        //for (i in result) {
+                        //    alert(result[i].comment.text);
+                        //}
+                        //commentMsg.html("Comments from database");
+                        //alert(data('Post'));
+                        //$.each(data, function () {
+                        //    alert(this.comment);
+                        //});
+
+                        for (var i in data) {
+                            alert(data[i].comment.text);
+                        }
+                    },
+                    error: function (e) {
+                        alert("Error");
+                    }
+                });
+            //}
+            });
+        </script>*@
+    @*<script>
+            function getCommentCount() {
+                $('.addcomment').on('click', function () {
+                    var postId = $(this).attr('data-id');
+
+                    $.ajax({
+                        url: '/Admin/Post/GetCommentsCount/' + postId,
+                        data: "postId=" + postId,
+                        type: 'GET',
+                        dataType: 'text',
+                        success: function (data) {
+                            alert(data)
+                        },
+                        error: function (e) {
+                            alert("Error");
+                        }
+                    });
+                });
+            }
+
+
+            setInterval(function () {
+                 getCommentCount();
+
+            }, 500);
+        </script>*@
+
+    <script>
+
+        $('.addcomment').on('click', function () {
+            var postId = $(this).attr('data-id');
+            var commentMsg = $('#comment_' + postId).val();
+
+            if (commentMsg == null || commentMsg == "") {
+                alert("You are not alllowed to submit an empty Comment");
+                window.location = "/Customer/Home/Blog";
+            } else {
+
+                var model = {
+                    PostId: parseInt(postId),
+                    Comment: commentMsg
+                };
+
+                $.ajax({
+                    url: "/Admin/Post/PostComment",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(model),
+                    success: function (data) {
+                        $('#comment_' + postId).val("");
+                        if (data.status == 'ok') {
+                            window.location = "/Customer/Home/Blog";
+                            //alert("Comment Successfully");
+                        } else {
+                            alert("Unable to Comment on this post");
+                        }
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+                    }
+
+                });
+            }
+        });
+    </script>
+    <script>
+
+        $('.addlike').on('click', function () {
+            var postId = $(this).attr('data-id');
+
+                var model = {
+                    PostId: parseInt(postId),
+                };
+
+                $.ajax({
+                    url: "/Admin/Post/AddLike",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(model),
+                    success: function (data) {
+                        if (data.status == 'ok') {
+                            window.location = "/Customer/Home/Blog";
+                            //alert("Comment Successfully");
+                        } else {
+                            alert("Unable to Comment on this post");
+                        }
+
+                    },
+                    error: function (e) {
+                        alert("Error");
+                    }
+
+                });
+        });
+    </script>
+</body>
+
+</html>
