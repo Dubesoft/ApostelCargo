@@ -66,141 +66,150 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
     <!-- header -->
     <partial name="_Header" />
-    <br /><br />
     <!-- //header -->
 
-    <div class="row">
-        <div class="col-10 text-right">
-            @if (signInManager.IsSignedIn(User))
-            {
-                <p>
-                    <button class="btn btn-primary" onclick="createModal('/Admin/Post/Create')"><i class="fa fa-plus"></i>&nbsp; Create New Post</button>
-                </p>
-            }
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-8">
-            <p><h3 class="box-title text-info">Blog</h3></p>
-            @{var i = 0;}
-            @if (Model.Post.Count() > 0)
-            {
-                foreach (var item in Model.Post)
-                {
-                    <div class="box box-widget">
-                        <div class='box-header with-border'>
-                            <div class='user-block'>
-                                <img class='img-circle' src='dist/img/user1-128x128.jpg' alt='user image'>
-                                <span class='username'><a href="#">Apostel Cargo</a></span>
-                                <span class='description'>Shared publicly -  @item.DateCreated.ToString("dd-MMM-yyyy")</span>
-                            </div><!-- /.user-block -->
-                            <div class='box-tools'>
-                                <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
-                                <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
-                                <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
-                            </div><!-- /.box-tools -->
-                        </div><!-- /.box-header -->
-                        <div class='box-body'>
-                            @if (item.Picture != null)
-                            {
-                                var base64 = Convert.ToBase64String(item.Picture);
-                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
-                                <img class="img-responsive pad" src="@imgsrc" alt="Photo">
-                            }
-
-                            @if (item.Video != null)
-                            {
-                                var base64 = Convert.ToBase64String(item.Picture);
-                                var vidsrc = string.Format("data:image/jpg;base64,{0}", base64);
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <div class="embed-responsive embed-responsive-16by9">
-                                            <video src="@vidsrc" controls=""></video>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-
-                            <p> @item.Description</p>
-                            <button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>
-
-                            @*<button class='btn btn-default btn-xs' disabled=""><i class='fa fa-thumbs-o-up'></i> Like</button>*@
-
-                            <button class='btn btn-default btn-xs addlike' data-id="@item.PostId"><i class='fa fa-thumbs-o-up'></i> Like</button>
+   
+    <section class="banner_bottom py-md-5">
+        <div class="container py-4 mt-2">
+            <p><h3 class="box-title text-info text-center">Our Blog</h3></p>
+            <div class="inner_sec_info_wthree_agile pt-4 mt-md-4">
+                <div class="row help_full">
+                    <div class="row">
+                        <div class="col-10 text-right pull-right">
                             @if (signInManager.IsSignedIn(User))
                             {
-                                <button class='btn btn-default btn-xs' onclick="editModal('/Admin/Post/Edit?Id=@item.PostId')"><i class='fa fa-pencil-alt'></i> Edit</button>
-                                <button class='btn btn-default btn-xs' onclick="deleteModal('/Admin/Post/Delete?Id=@item.PostId')"><i class='fa fa-trash'></i> Delete</button>
+                                <p>
+                                    <button class="btn btn-primary" onclick="createModal('/Admin/Post/Create')"><i class="fa fa-plus"></i>&nbsp; Create New Post</button>
+                                </p>
                             }
-                            <button class='btn btn-default btn-xs' data-id="@item.PostId" onclick="commentModal('/Admin/Post/GetComments?Id=@item.PostId')"><i class='fa fa-eye-o-up'></i> View Comments</button>
+                        </div>
+                    </div>
+                    <div class="row">
 
-
-                            @*<span id="commentBtn" class='pull-right text-muted commentBtn' onclick="getComments()"> @Model.CommentCount likes - 5 comments</span>*@
-
-                        <span id="commentBtn" class='pull-right text-muted commentBtn'>
-                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) != null)
+                        <div class="col-md-2">
+                        </div>
+                        <div class="col-md-8">
+                            
+                            <hr />
+                            @{var i = 0;}
+                            @if (Model.Post.Count() > 0)
                             {
-                                <label> @HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) Likes(s)</label>
+                                foreach (var item in Model.Post)
+                                {
+                                    <div class="box box-widget">
+                                        <div class='box-header with-border'>
+                                            <div class='user-block'>
+                                                <img class='img-circle' src='~/images/logo1.png' alt='user image' style="width: 70px; height: 70px">
+                                                <span class='username'><a href="#">Apostel Cargo</a></span>
+                                                <span class='description'>Shared publicly -  @item.DateCreated.ToString("dd-MMM-yyyy")</span>
+                                            </div><!-- /.user-block -->
+                                            <div class='box-tools'>
+                                                <button class='btn btn-box-tool' data-toggle='tooltip' title='Mark as read'><i class='fa fa-circle-o'></i></button>
+                                                <button class='btn btn-box-tool' data-widget='collapse'><i class='fa fa-minus'></i></button>
+                                                <button class='btn btn-box-tool' data-widget='remove'><i class='fa fa-times'></i></button>
+                                            </div><!-- /.box-tools -->
+                                        </div><!-- /.box-header -->
+                                        <div class='box-body'>
+                                            @if (item.Picture != null)
+                                            {
+                                                var base64 = Convert.ToBase64String(item.Picture);
+                                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                                <img class="img-responsive pad" src="@imgsrc" alt="Photo">
+                                            }
+
+                                            @if (item.Video != null)
+                                            {
+                                                var base64 = Convert.ToBase64String(item.Picture);
+                                                var vidsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div class="embed-responsive embed-responsive-16by9">
+                                                            <video src="@vidsrc" controls=""></video>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <p> @item.Description</p>
+                                            <button class='btn btn-default btn-xs'><i class='fa fa-share'></i> Share</button>
+
+                                            @*<button class='btn btn-default btn-xs' disabled=""><i class='fa fa-thumbs-o-up'></i> Like</button>*@
+
+                                            <button class='btn btn-default btn-xs addlike' data-id="@item.PostId"><i class='fa fa-thumbs-up'></i> Like</button>
+                                            @if (signInManager.IsSignedIn(User))
+                                            {
+                                                <button class='btn btn-default btn-xs' onclick="editModal('/Admin/Post/Edit?Id=@item.PostId')"><i class='fa fa-edit'3></i> Edit</button>
+                                                <button class='btn btn-default btn-xs' onclick="deleteModal('/Admin/Post/Delete?Id=@item.PostId')"><i class='fa fa-trash'></i> Delete</button>
+                                            }
+                                            <button class='btn btn-default btn-xs' data-id="@item.PostId" onclick="commentModal('/Admin/Post/GetComments?Id=@item.PostId')"><i class='fa fa-eye'></i> View Comments</button>
+
+
+                                            @*<span id="commentBtn" class='pull-right text-muted commentBtn' onclick="getComments()"> @Model.CommentCount likes - 5 comments</span>*@
+
+                                            <span id="commentBtn" class='pull-right text-muted commentBtn'>
+                                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) != null)
+                                                {
+                                                    <label> @HttpContextAccessor.HttpContext.Session.GetInt32("likesCount" + i) Likes(s)</label>
+                                                }
+                                                else
+                                                {
+                                                    <label>0 Likes</label>
+                                                }
+
+
+                                                -
+                                                @if (HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) != null)
+                                                {
+                                                    <label> @HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) Comment(s)</label>
+                                                }
+                                                else
+                                                {
+                                                    <label>0 Comment</label>
+                                                }
+
+                                            </span>
+                                            @{
+                                                i++;
+
+                                            }
+                                        </div><!-- /.box-body -->
+
+                                        <div class="box-footer">
+                                            <form action="#" method="post">
+
+                                                <img class="img-responsive img-circle img-sm" src="../../dist/img/user1-128x128.jpg" alt="User profile picture">
+
+                                                <!-- .img-push is used to add margin to elements next to floating images -->
+                                                <div class="img-push">
+                                                    <div class="row">
+                                                        <div class="col-md-10">
+                                                            <input type="text" class="form-control input-sm" id="@string.Format("{0}_{1}", "comment", item.PostId)" placeholder="Press enter to post comment">
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <button type="button" class="btn btn-primary addcomment" data-id="@item.PostId">Comment</button>
+                                                        </div>
+                                                    </div>
+
+                                                    @*<input type="text" id="@string.Format("{0}_{1}", "comment", @item.PostId)" class="" asp-for="@item.PostId" />*@
+                                                </div>
+                                            </form>
+                                        </div><!-- /.box-footer -->
+                                    </div><!-- /.box -->
+                                }
                             }
                             else
                             {
-                                <label>0 Likes</label>
+                                <p>No Post exist...</p>
                             }
 
-
-                             -
-                            @if (HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) != null)
-                            {
-                                <label> @HttpContextAccessor.HttpContext.Session.GetInt32("cmtCount" + i) Comment(s)</label>
-                            }
-                            else
-                            {
-                                <label>0 Comment</label>
-                            }
-
-                        </span>
-                            @{
-                                i++;
-
-                            }
-                        </div><!-- /.box-body -->
-
-                        <div class="box-footer">
-                            <form action="#" method="post">
-
-                                <img class="img-responsive img-circle img-sm" src="../../dist/img/user1-128x128.jpg" alt="User profile picture">
-
-                                <!-- .img-push is used to add margin to elements next to floating images -->
-                                <div class="img-push">
-                                    <div class="row">
-                                        <div class="col-md-10">
-                                            <input type="text" class="form-control input-sm" id="@string.Format("{0}_{1}", "comment", item.PostId)" placeholder="Press enter to post comment">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary addcomment" data-id="@item.PostId">Comment</button>
-                                        </div>
-                                    </div>
-
-                                    @*<input type="text" id="@string.Format("{0}_{1}", "comment", @item.PostId)" class="" asp-for="@item.PostId" />*@
-                                </div>
-                            </form>
-                        </div><!-- /.box-footer -->
-                    </div><!-- /.box -->
-                }
-            }
-            else
-            {
-                <p>No Post exist...</p>
-            }
-
+                        </div>
+                        <div class="col-md-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-2">
-        </div>
-    </div>
-
+    </section>
 
     <!--//ab-->
     <!-- distance -->
@@ -617,30 +626,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         $('.addlike').on('click', function () {
             var postId = $(this).attr('data-id');
 
-                var model = {
-                    PostId: parseInt(postId),
-                };
+            var model = {
+                PostId: parseInt(postId),
+            };
 
-                $.ajax({
-                    url: "/Admin/Post/AddLike",
-                    type: 'POST',
-                    contentType: 'application/json',
-                    dataType: 'json',
-                    data: JSON.stringify(model),
-                    success: function (data) {
-                        if (data.status == 'ok') {
-                            window.location = "/Customer/Home/Blog";
-                            //alert("Comment Successfully");
-                        } else {
-                            alert("Unable to Comment on this post");
-                        }
-
-                    },
-                    error: function (e) {
-                        alert("Error");
+            $.ajax({
+                url: "/Admin/Post/AddLike",
+                type: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(model),
+                success: function (data) {
+                    if (data.status == 'ok') {
+                        window.location = "/Customer/Home/Blog";
+                        //alert("Comment Successfully");
+                    } else {
+                        alert("Unable to Comment on this post");
                     }
 
-                });
+                },
+                error: function (e) {
+                    alert("Error");
+                }
+
+            });
         });
     </script>
 </body>

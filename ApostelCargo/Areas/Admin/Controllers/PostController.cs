@@ -145,6 +145,9 @@ namespace ApostelCargo.Areas.Admin.Controllers
             }
 
             var service = await _db.Post.SingleOrDefaultAsync(s => s.PostId == post.PostId);
+            var commentCount = await _db.CommentCount.SingleOrDefaultAsync(c => c.PostId == post.PostId);
+            var comment = await _db.Comments.Where(c => c.PostId == post.PostId).ToListAsync();
+            var likesCount = await _db.LikeCount.SingleOrDefaultAsync(l => l.PostId == post.PostId);
 
             if (service == null)
             {
@@ -152,6 +155,15 @@ namespace ApostelCargo.Areas.Admin.Controllers
             }
 
             _db.Post.Remove(service);
+
+            foreach (var item in comment)
+            {
+                _db.Comments.Remove(item);
+            }
+            
+            _db.CommentCount.Remove(commentCount);
+            _db.LikeCount.Remove(likesCount);
+
             await _db.SaveChangesAsync();
             return Redirect("/Customer/Home/Blog");
 

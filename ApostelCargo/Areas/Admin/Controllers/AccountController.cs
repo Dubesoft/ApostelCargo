@@ -28,6 +28,12 @@ namespace ApostelCargo.Areas.Admin.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
+        //"DefaultConnection": "Server=SQL5049.site4now.net;Database=DB_A643E4_Dubesoft; User Id=DB_A643E4_Dubesoft_admin;Password=08064587230Dubem;Trusted_Connection=False;MultipleActiveResultSets=true"
+        //"DefaultConnection": "Server=DICKSON;Database=ApostelCargo;Trusted_Connection=True;MultipleActiveResultSets=true"
+        //Server name: SQL5049.site4now.net
+        //Login: DB_A643E4_Dubesoft_admin
+        //Password: 08064587230Dubem
         public IActionResult Index()
         {
             return View();
@@ -115,7 +121,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         {
             HttpContext.Session.Clear();
             await _signInManager.SignOutAsync();
-            return RedirectToAction(nameof(Login));
+            return Redirect("/Customer/Home/Index");
         }
     }
 }
