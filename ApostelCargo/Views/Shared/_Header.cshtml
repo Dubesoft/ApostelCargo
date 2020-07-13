@@ -53,9 +53,10 @@
                     </ul>
 
                 </div>
+                &nbsp;&nbsp;
                 @if (signInManager.IsSignedIn(User))
                 {
-                    <p class="pull-right">Welcome @user.Email</p><span><a asp-action="Logout" asp-controller="Account" asp-area="Admin">Log Out</a></span>
+                    <p class="pull-right">Welcome @user.Email</p><span><a class="btn btn-secondary" asp-action="Logout" asp-controller="Account" asp-area="Admin">Log Out</a></span>
                 }
             </nav>
         </header>

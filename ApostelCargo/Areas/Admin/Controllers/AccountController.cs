@@ -123,5 +123,10 @@ namespace ApostelCargo.Areas.Admin.Controllers
             await _signInManager.SignOutAsync();
             return Redirect("/Customer/Home/Index");
         }
+
+        public IActionResult ErrorSomethingWentWrong()
+        {
+            return View();
+        }
     }
 }

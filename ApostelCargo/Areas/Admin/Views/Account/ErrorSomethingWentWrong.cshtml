@@ -1,0 +1,143 @@
+﻿
+@{
+    ViewData["Title"] = "ErrorSomethingWentWrong";
+    Layout = null;
+}
+
+    <!--
+    Author: W3layouts
+    Author URL: http://w3layouts.com
+    License: Creative Commons Attribution 3.0 Unported
+    License URL: http://creativecommons.org/licenses/by/3.0/
+    -->
+    <!DOCTYPE html>
+    <html lang="zxx">
+
+    <head>
+        <title>Apostel Cargo | Something Went Wrong </title>
+        <!-- for-mobile-apps -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8" />
+        <meta name="keywords" content="Shipping Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script>
+
+            addEventListener("load", function () {
+                setTimeout(hideURLbar, 0);
+            }, false);
+
+            function hideURLbar() {
+                window.scrollTo(0, 1);
+            }
+        </script>
+        <!-- //for-mobile-apps -->
+        <link href="~/css/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+        <link href="~/css/font-awesome.css" rel="stylesheet">
+        <link href="~/css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="//fonts.googleapis.com/css?family=Rubik:400,500,700,900" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+        <link rel="icon" href="~/images/logo2.png" type="image/x-icon" />
+    </head>
+
+    <body>
+        <!-- header -->
+        <partial name="_Header" />
+        <!-- //header -->
+        <section class="banner_bottom py-md-5">
+            <div class="container py-4 mt-2">
+                <div class="text-center">
+                    <h1 class="text-danger">Something Went Wrong</h1>
+                    <h6 class="text-danger"></h6>
+                    <img src="~/images/somethingwentwrong.gif" style="height: 500px; width:700px;" />
+                </div>
+            </div>
+        </section>
+        <!--//ab-->
+        <!-- distance -->
+        <section class="distance-w3 py-md-5">
+            <div class="container py-4 mt-2">
+                <div class="row">
+                    <div class="col-md-8 distance-agile-left">
+                        <h4 class="mt-2">The Safest Distance Between Two Points.</h4>
+                    </div>
+                    <div class="col-md-4 distance-agile-right">
+                        <a href="contact.html">call us 5-367-123-4567</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- //distance -->
+        <!-- team -->
+        <!-- //team -->
+        <!-- footer -->
+        <partial name="_Footer" />
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Shipping</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="agileits-w3layouts-info">
+                            <img src="images/g1.jpg" class="img-fluid" alt="" />
+                            <p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. </p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- //Modal -->
+        <!-- js -->
+        <script src="~/js/jquery-2.2.3.min.js"></script>
+        <!-- //js-->
+        <!-- start-smooth-scrolling -->
+        <script src="~/js/move-top.js"></script>
+        <script src="~/js/easing.js"></script>
+        <script>
+
+            jQuery(document).ready(function ($) {
+                $(".scroll").click(function (event) {
+                    event.preventDefault();
+
+                    $('html,body').animate({
+                        scrollTop: $(this.hash).offset().top
+                    }, 1000);
+                });
+            });
+        </script>
+        <!-- //end-smooth-scrolling -->
+        <!-- smooth-scrolling-of-move-up -->
+        <script>
+
+            $(document).ready(function () {
+                /*
+                var defaults = {
+                    containerID: 'toTop', // fading element id
+                    containerHoverID: 'toTopHover', // fading element hover id
+                    scrollSpeed: 1200,
+                    easingType: 'linear'
+                };
+                */
+
+                $().UItoTop({
+                    easingType: 'easeOutQuart'
+                });
+
+            });
+        </script>
+        <script src="~/js/SmoothScroll.min.js"></script>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="~/js/bootstrap.js"></script>
+    </body>
+
+</html>

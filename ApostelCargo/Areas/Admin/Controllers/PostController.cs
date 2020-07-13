@@ -72,7 +72,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         {
             if (id == null)
             {
-                throw new ArgumentNullException(nameof(id));
+                return Redirect("/Admin/Account/ErrorSomethingWentWrong");
             }
 
             var post = await _db.Post.FindAsync(id);

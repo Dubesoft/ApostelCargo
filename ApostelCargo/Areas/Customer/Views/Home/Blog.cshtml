@@ -27,7 +27,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <html lang="zxx">
 
 <head>
-    <title>Shipping a Transportation Category Flat Bootstrap Responsive Website Template | About :: w3layouts</title>
+    <title>Apostel Cargo | About </title>
     <!-- for-mobile-apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
@@ -60,6 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="~/dist/css/skins/_all-skins.min.css">
+    <link rel="icon" href="~/images/logo2.png" type="image/x-icon" />
 
 </head>
 
@@ -74,22 +75,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <p><h3 class="box-title text-info text-center">Our Blog</h3></p>
             <div class="inner_sec_info_wthree_agile pt-4 mt-md-4">
                 <div class="row help_full">
-                    <div class="row">
-                        <div class="col-10 text-right pull-right">
+                        <div class="col-10 text-right">
                             @if (signInManager.IsSignedIn(User))
                             {
                                 <p>
-                                    <button class="btn btn-primary" onclick="createModal('/Admin/Post/Create')"><i class="fa fa-plus"></i>&nbsp; Create New Post</button>
+                                    <button class="btn btn-primary pull-right" onclick="createModal('/Admin/Post/Create')"><i class="fa fa-plus"></i>&nbsp; Create New Post</button>
                                 </p>
                             }
                         </div>
-                    </div>
+                    
                     <div class="row">
 
                         <div class="col-md-2">
                         </div>
                         <div class="col-md-8">
-                            
+
                             <hr />
                             @{var i = 0;}
                             @if (Model.Post.Count() > 0)
@@ -138,7 +138,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                             <button class='btn btn-default btn-xs addlike' data-id="@item.PostId"><i class='fa fa-thumbs-up'></i> Like</button>
                                             @if (signInManager.IsSignedIn(User))
                                             {
-                                                <button class='btn btn-default btn-xs' onclick="editModal('/Admin/Post/Edit?Id=@item.PostId')"><i class='fa fa-edit'3></i> Edit</button>
+                                                <button class='btn btn-default btn-xs' onclick="editModal('/Admin/Post/Edit?Id=@item.PostId')"><i class='fa fa-edit' 3></i> Edit</button>
                                                 <button class='btn btn-default btn-xs' onclick="deleteModal('/Admin/Post/Delete?Id=@item.PostId')"><i class='fa fa-trash'></i> Delete</button>
                                             }
                                             <button class='btn btn-default btn-xs' data-id="@item.PostId" onclick="commentModal('/Admin/Post/GetComments?Id=@item.PostId')"><i class='fa fa-eye'></i> View Comments</button>
