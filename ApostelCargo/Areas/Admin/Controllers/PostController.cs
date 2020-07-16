@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ApostelCargo.Data;
 using ApostelCargo.Models;
 using ApostelCargo.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -156,14 +157,26 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
             _db.Post.Remove(service);
 
-            foreach (var item in comment)
+            if(comment != null)
             {
-                _db.Comments.Remove(item);
+                foreach (var item in comment)
+                {
+                    _db.Comments.Remove(item);
+                }
             }
             
-            _db.CommentCount.Remove(commentCount);
-            _db.LikeCount.Remove(likesCount);
+            
+            if(commentCount != null)
+            {
+                _db.CommentCount.Remove(commentCount);
+            }
+            
+            if(likesCount != null)
+            {
+                _db.LikeCount.Remove(likesCount);
+            }
 
+            HttpContext.Session.Clear();
             await _db.SaveChangesAsync();
             return Redirect("/Customer/Home/Blog");
 
@@ -327,6 +340,20 @@ namespace ApostelCargo.Areas.Admin.Controllers
             comments = await _db.Comments.Where(p => p.PostId == Id).ToListAsync();
             return Json(comments.Count());
             //}
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ErrorOccured()
+        {
+            return View();
         }
     }
 }
