@@ -551,5 +551,19 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ErrorOccured()
+        {
+            return View();
+        }
     }
 }
