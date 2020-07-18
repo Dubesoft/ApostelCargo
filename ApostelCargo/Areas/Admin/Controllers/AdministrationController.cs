@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 namespace ApostelCargo.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class AdministrationController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -39,7 +40,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult RolesList()
         {
@@ -48,14 +49,14 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateRole()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateRole(RoleModel roleModel)
         {
             if (ModelState.IsValid)
@@ -80,7 +81,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(string id)
         {
             if (id == null)
@@ -113,7 +114,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             if (model.Id == null)
@@ -146,7 +147,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(string id)
         {
             if (id == null)
@@ -180,7 +181,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(EditRoleViewModel model)
         {
             if (model == null)
@@ -224,7 +225,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RoleDetail(string id)
         {
 
@@ -263,7 +264,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsersInRole(string roleId)
         {
             ViewBag.roleId = roleId;
@@ -300,7 +301,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUsersInRole(List<UserRoleModel> model, string roleId)
         {
             ViewBag.roleId = roleId;
@@ -342,7 +343,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
             return RedirectToAction("RolesList", new { Id = role.Id });
         }
 
-
+        [HttpGet]
         [Authorize]
         public IActionResult UsersList()
         {
@@ -353,7 +354,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateUser()
         {
 
@@ -361,7 +362,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateUser(User model)
         {
             if (model == null)
@@ -401,7 +402,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(string Id)
         {
             if (Id == null)
@@ -429,7 +430,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> EditUser(User model)
         {
             if (model == null)
@@ -465,7 +466,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string Id)
         {
             if (Id == null)
@@ -494,7 +495,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(User model)
         {
             if (model == null)

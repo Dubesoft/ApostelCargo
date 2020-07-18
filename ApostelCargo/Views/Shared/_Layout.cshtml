@@ -1,4 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,20 +29,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown text-white-50">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Content Management
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                <a class="dropdown-item" asp-action="RolesList" asp-controller="Administration" asp-area="Admin">Roles</a>
-                                <a class="dropdown-item" asp-action="UsersList" asp-controller="Administration" asp-area="Admin">Users</a>
-                            </div>
-                        </li>
+                       
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Content Panel
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    @if (signInManager.IsSignedIn(User))
+                                    {
+                                        <a class="dropdown-item" asp-action="RolesList" asp-controller="Administration" asp-area="Admin">Roles</a>
+                                        <a class="dropdown-item" asp-action="UsersList" asp-controller="Administration" asp-area="Admin">Users</a>
+                                    }
+                                    </div>
+                            </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="Customer" asp-controller="Home" asp-action="Blog">Blog</a>
                         </li>
                     </ul>
                 </div>

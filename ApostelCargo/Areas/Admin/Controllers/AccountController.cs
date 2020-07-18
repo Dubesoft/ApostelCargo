@@ -92,6 +92,7 @@ namespace ApostelCargo.Areas.Admin.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginModel model, string ReturnUrl)
         {
+            var roleName = "";
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
@@ -105,6 +106,17 @@ namespace ApostelCargo.Areas.Admin.Controllers
                     else
                     {
                         var userResult = await _db.Users.Where(u => u.Email == model.Email).FirstOrDefaultAsync();
+                        var roles = await _userManager.GetRolesAsync(userResult);
+
+                        foreach (var role in roles)
+                        {
+                            roleName = role.ToString();
+                        }
+
+                        if (roleName.Equals("Admin"))
+                        {
+                            return Redirect("/Admin/Administration/Index");
+                        }
                         return Redirect("/Customer/Home/Index");
                     }
 

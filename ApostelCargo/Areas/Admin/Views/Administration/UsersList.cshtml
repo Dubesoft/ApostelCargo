@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 
+
 @model IEnumerable<IdentityUser>
 
 @{
@@ -39,32 +40,32 @@
                 </tr>
                 @foreach (var user in Model)
                 {
-            <tr>
-                <td>
-                    @Html.DisplayFor(m => user.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => user.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(m => user.PhoneNumber)
-                </td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-primary text-white" asp-action="EditUser" asp-route-id="@user.Id">
-                            <i class="fa fa-edit"></i>
-                        </a>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => user.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => user.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => user.PhoneNumber)
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-primary text-white" asp-action="EditUser" asp-route-id="@user.Id">
+                                    <i class="fa fa-edit"></i>
+                                </a>
 
-                        <a class="btn btn-success text-white" asp-action="UserDetail" asp-route-id="@user.Id">
-                            <i class="fa fa-list-alt"></i>
-                        </a>
+                                <a class="btn btn-success text-white" asp-action="UserDetail" asp-route-id="@user.Id">
+                                    <i class="fa fa-list-alt"></i>
+                                </a>
 
-                        <a class="btn btn-danger text-white" asp-action="DeleteUser" asp-route-id="@user.Id">
-                            <i class="fa fa-trash"></i>
-                        </a>
-                    </div>
-                </td>
-            </tr>
+                                <a class="btn btn-danger text-white" asp-action="DeleteUser" asp-route-id="@user.Id">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 }
             </table>
         }
